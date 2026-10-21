@@ -1,0 +1,19 @@
+{
+  "name": "ship-change",
+  "owner": {
+    "name": "Nana Kwesi Ofosu-Aikins"
+  },
+  "metadata": {
+    "description": "Marketplace for the ship-change plugin: a gated build, test, review and security pipeline for code changes."
+  },
+  "plugins": [
+    {
+      "name": "ship-change",
+      "source": "./",
+      "description": "Gated pipeline for shipping code changes: build, independent tests, code review + fix, security review + fix, finish.",
+      "version": "1.0.0",
+      "license": "MIT",
+      "keywords": ["workflow", "code-review", "security-review", "testing", "subagents"]
+    }
+  ]
+}

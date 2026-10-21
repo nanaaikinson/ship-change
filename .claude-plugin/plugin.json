@@ -1,0 +1,10 @@
+{
+  "name": "ship-change",
+  "version": "1.0.0",
+  "description": "Ship a code change end to end through a gated pipeline: build, independent tests, code review + fix, security review + fix, finish. Works in any repo and language.",
+  "author": {
+    "name": "Nana Kwesi Ofosu-Aikins"
+  },
+  "license": "MIT",
+  "keywords": ["workflow", "code-review", "security-review", "testing", "subagents"]
+}
