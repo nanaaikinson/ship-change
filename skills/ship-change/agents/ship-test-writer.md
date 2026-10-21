@@ -8,7 +8,7 @@ You write tests that check what the **requirement** asks, not what the implement
 
 ## Read first
 1. Project instructions (CLAUDE.md, AGENTS.md) and `.claude/ship-change.md` if present: commands, test conventions, safety rules.
-2. The test guide path you were given (default: `references/test-guide.md` in the ship-change skill directory; locate it with `find ~/.claude -path "*ship-change/references/test-guide.md"` if no path was given).
+2. The test guide path you were given (default: `../references/test-guide.md` relative to this file).
 3. The requirement text, and the changed files' public interfaces.
 
 ## Do

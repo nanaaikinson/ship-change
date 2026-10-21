@@ -31,8 +31,10 @@ Commits are always the user's call: the skill asks at each commit point and neve
 
 ```
 .claude-plugin/        plugin.json, marketplace.json
-skills/ship-change/    SKILL.md + references/ (pipeline, checklists, test guide, profile template)
-agents/                ship-test-writer, ship-code-reviewer, ship-security-reviewer
+skills/ship-change/
+  SKILL.md             the orchestrator
+  references/          pipeline, checklists, test guide, profile template
+  agents/              ship-test-writer, ship-code-reviewer, ship-security-reviewer
 ```
 
 ## Install
@@ -57,20 +59,25 @@ From GitHub:
 npx skills add nanaaikinson/ship-change
 ```
 
-This installs the skill only; the `npx skills` CLI does not install agents. The skill still runs, but its test and review phases need the three agents to be independent. Add them once:
+The CLI copies the whole skill folder, including `agents/`, so the agent prompts come along. It does not register them as named subagents, so the skill hands them to generic subagents by file path instead. To get the named Claude Code agents too, copy them once:
 
 ```
 mkdir -p ~/.claude/agents
-for a in ship-test-writer ship-code-reviewer ship-security-reviewer; do
-  curl -fsSL -o ~/.claude/agents/$a.md https://raw.githubusercontent.com/nanaaikinson/ship-change/main/agents/$a.md
-done
+cp <skill dir>/agents/*.md ~/.claude/agents/
 ```
-
-Without them the skill has no agent definitions to hand to subagents, so it does each phase itself and says in the report that the reviews were not independent.
 
 ### Manual
 
-Without the plugin system or the CLI: copy `skills/ship-change` to `~/.claude/skills/` and `agents/*.md` to `~/.claude/agents/`.
+Copy `skills/ship-change` to `~/.claude/skills/`, and `skills/ship-change/agents/*.md` to `~/.claude/agents/` for named agents.
+
+## Other agents
+
+The skill follows the open Agent Skills format, so `npx skills add` can install it for Codex, Cursor, OpenCode and other agents. Untested outside Claude Code. What to expect:
+
+- **Subagents available:** the skill tells the agent to spawn one per phase, each starting with "Read `agents/<name>.md` and act as that agent". Tests and reviews stay independent.
+- **No subagents:** the skill does every phase itself, re-reading the diff from scratch for each review, and says in the report that the reviews were not independent.
+- **Claude-only tools** (`AskUserQuestion`, `SendMessage`) have plain-text or "equivalent" fallbacks in the skill.
+- The per-project profile lives at `.claude/ship-change.md` whatever the agent; it is just a file the skill reads.
 
 ## Usage
 

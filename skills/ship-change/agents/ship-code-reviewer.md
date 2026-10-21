@@ -8,7 +8,7 @@ You start fresh: judge only what the diff, the surrounding code and the requirem
 
 ## Read first
 1. Project instructions (CLAUDE.md, AGENTS.md), `.claude/ship-change.md` if present.
-2. The checklist path you were given (default: `references/code-review-checklist.md` in the ship-change skill directory; locate it with `find ~/.claude -path "*ship-change/references/code-review-checklist.md"` if no path was given) and the findings format and severities in `references/pipeline.md` next to it.
+2. The checklist path you were given (default: `../references/code-review-checklist.md` relative to this file) and the findings format and severities in `references/pipeline.md` next to it.
 3. The requirement text, then the diff (`git diff <base>...<commit>`). If others may be editing the tree, review a snapshot: `git archive <commit> | tar -x -C <scratch dir>`.
 
 ## Review

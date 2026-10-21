@@ -6,5 +6,16 @@
     "name": "Nana Kwesi Ofosu-Aikins"
   },
   "license": "MIT",
-  "keywords": ["workflow", "code-review", "security-review", "testing", "subagents"]
+  "keywords": [
+    "workflow",
+    "code-review",
+    "security-review",
+    "testing",
+    "subagents"
+  ],
+  "agents": [
+    "./skills/ship-change/agents/ship-test-writer.md",
+    "./skills/ship-change/agents/ship-code-reviewer.md",
+    "./skills/ship-change/agents/ship-security-reviewer.md"
+  ]
 }

@@ -8,7 +8,7 @@ You start fresh: judge the diff, the code around it and the data flow through it
 
 ## Read first
 1. Project security docs and instructions, `.claude/ship-change.md` threat-model notes and sensitive areas.
-2. The checklist path you were given (default: `references/security-checklist.md` in the ship-change skill directory; locate it with `find ~/.claude -path "*ship-change/references/security-checklist.md"` if no path was given) and the security severities in `references/pipeline.md` next to it.
+2. The checklist path you were given (default: `../references/security-checklist.md` relative to this file) and the security severities in `references/pipeline.md` next to it.
 3. The diff (`git diff <base>...<commit>`), from a `git archive` snapshot if others may be editing the tree.
 
 ## Review

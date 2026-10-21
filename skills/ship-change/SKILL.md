@@ -70,7 +70,7 @@ Spawn `ship-test-writer` with: the requirement text and the numbered criteria fr
 
 - **Bug fix:** tell it the reproduction. At least one test must reproduce the bug, and it has to fail on the base commit (check against a `git archive` snapshot or a worktree, never by reverting your fix in the working tree) and pass on the fix.
 - **Run it alongside Phase 3** when its work only adds test files: start the code reviewer at the same time on the build commit. Security review still waits for Phase 3's fixes.
-- **Bugs found** → fix the production code yourself, then ask the same agent (SendMessage, so it keeps context) to re-run.
+- **Bugs found** → fix the production code yourself, then ask the same agent (SendMessage or equivalent, so it keeps context) to re-run.
 - **You changed production code under it** (review fixes) → tell it what changed so it adapts instead of fighting stale assumptions.
 - **Gaps** → fill them (send it back) or record them for the report.
 - **Gate:** the project's test command passes, plus the race/integration variant for changed packages where the project has one. Commit the tests per the commit policy.
@@ -107,8 +107,8 @@ These habits keep parallel work from going wrong:
 - **Stable snapshots for reviewers.** When anyone else may edit the working tree, tell reviewers to review a commit from a snapshot (`git archive <sha> | tar -x -C <scratch>`), not the live tree.
 - **Never lose others' work.** Agents restore mutation checks with an editor, never `git checkout`/`git stash`/`git reset`, and you commit only your own files while others have work in progress (`git add <paths>`, not `git add -A`). If you must look at a file's committed version, use `git show <sha>:<path>`.
 - **Agent reports are claims.** Check the commit, the diff and the test run before telling the user something is done.
-- **Interrupted agents** (rate limits, errors): resume the same agent with SendMessage instead of starting a new one; it keeps its context.
-- **Missing agent types** (other tools, older setups): spawn a general-purpose agent per phase whose prompt starts "Read `<abs path>/agents/<name>.md` and act as that agent" — the agent files live in the plugin's `agents/` directory (or `~/.claude/agents/` for a manual install). With no subagents at all, do each phase yourself, re-reading the diff and checklist from scratch for each review, and say in the report that reviews weren't independent.
+- **Interrupted agents** (rate limits, errors): resume the same agent with SendMessage (or your tool's equivalent) instead of starting a new one; it keeps its context. If you can't resume, start a fresh one and give it the open findings and the current diff.
+- **Missing agent types** (other tools, installs that skip agent registration): spawn a general-purpose agent per phase whose prompt starts "Read `<abs path>/agents/<name>.md` and act as that agent" — the agent definitions are bundled in this skill's own `agents/` directory, so they are present however the skill was installed. With no subagents at all, do each phase yourself, re-reading the diff and checklist from scratch for each review, and say in the report that reviews weren't independent.
 
 ## Safety rules
 
