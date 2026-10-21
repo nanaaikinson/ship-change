@@ -61,7 +61,26 @@ From GitHub:
 /plugin install ship-change@ship-change
 ```
 
-Manual install without the plugin system: copy `skills/ship-change` to `~/.claude/skills/` and `agents/*.md` to `~/.claude/agents/`.
+### skills.sh
+
+```
+npx skills add nanaaikinson/ship-change
+```
+
+This installs the skill only; the `npx skills` CLI does not install agents. The skill still runs, but its test and review phases need the three agents to be independent. Add them once:
+
+```
+mkdir -p ~/.claude/agents
+for a in ship-test-writer ship-code-reviewer ship-security-reviewer; do
+  curl -fsSL -o ~/.claude/agents/$a.md https://raw.githubusercontent.com/nanaaikinson/ship-change/main/agents/$a.md
+done
+```
+
+Without them the skill has no agent definitions to hand to subagents, so it does each phase itself and says in the report that the reviews were not independent.
+
+### Manual
+
+Without the plugin system or the CLI: copy `skills/ship-change` to `~/.claude/skills/` and `agents/*.md` to `~/.claude/agents/`.
 
 ## Usage
 
