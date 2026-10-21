@@ -7,5 +7,6 @@
 - **No sleeps for synchronisation.** Use channels, events, polling with deadlines or injected clocks.
 - **Clean up everything you start** — servers, processes, goroutines/threads, temp files — so leak checks stay green.
 - **Error paths and limits count as much as the happy path:** timeouts, malformed input, boundary values, concurrent callers, the dependency being down.
-- **Name tests after behaviour and cite requirement IDs.** Prefer table-driven cases and readable diffs (`cmp.Diff`, `assert.deepEqual`, snapshot tools) over hand-rolled field checks.
+- **Name tests after behaviour and cite the requirement ID or criterion number** (`R1`, `US-12`, …) in the name or a comment. Prefer table-driven cases and readable diffs (`cmp.Diff`, `assert.deepEqual`, snapshot tools) over hand-rolled field checks.
+- **For a bug fix, reproduce it first.** At least one test encodes the reported inputs and expected result and fails on the pre-fix code. Check that against a snapshot of the base commit, never by reverting the fix in the working tree. Add a case for the nearest behaviour that must not regress.
 - **Match the project's frameworks and helpers;** don't introduce a new test framework without asking.

@@ -27,14 +27,14 @@ Pick the size in Phase 0. It decides how much of the pipeline runs.
 
 | Phase | Gate | Commit |
 | --- | --- | --- |
-| 0 Intake | Requirement (or "none — bug fix / chore"), size, sensitive areas, plan, branch | — |
+| 0 Intake | Requirement (ID, or the user's own description) written as numbered testable criteria (for a bug: the reproduction), size, sensitive areas, plan, branch | — |
 | 1 Build | Format + lint + build pass | `feat(<area>): <summary> (<ID>)` |
 | 2 Tests | Test command passes; race/integration variant for changed packages where the project has one; key tests proven able to fail | `test(<area>): <summary>` |
 | 3 Code review | No open `blocker`/`major`; every finding has a disposition | `fix(<area>): address review` |
 | 4 Security review | No open `critical`/`high`; any open `medium` approved by the user as an accepted risk; regression tests for every `critical`/`high` fix | `fix(security): <summary>` |
 | 5 Finish | Done gate passes; docs, spec and user-facing notes updated; plan/ticket marked | merge per branching rules |
 
-Use the project's commit convention if it differs from the examples above.
+Use the project's commit convention if it differs from the examples above. The Commit column is the proposed message: nothing is committed until the user approves it, or has opted in to automatic commits for the run (see "Commit policy" in SKILL.md). A gate that says "commit" is still met when the user declines; report the changes as uncommitted.
 
 ## 3. Findings format
 
@@ -83,7 +83,7 @@ New findings in a re-review are normal; treat them the same way.
 ```markdown
 ## <Change title>
 
-**Requirements:** <IDs> (or: bug fix / chore)
+**Requirements:** <IDs, or the criteria R1…Rn derived from the user's request>; for a bug, the reproduction
 **Size:** Small | Standard   **Branch:** <branch>   **Commits:** <short SHAs>
 
 ### What changed

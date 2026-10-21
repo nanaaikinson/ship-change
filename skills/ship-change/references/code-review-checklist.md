@@ -16,4 +16,4 @@ Apply the sections that match the touched code. Every finding needs a concrete f
 
 **Clarity** — Names say what things are; functions do one thing; no dead code, speculative abstraction or commented-out blocks; comments explain why.
 
-**Tests and docs** — Tests cite requirement IDs, cover error paths and can fail. Spec, README, changelog and API docs updated where behaviour changed.
+**Tests and docs** — Tests cite the requirement ID or criterion number, cover every criterion, cover error paths and can fail; a bug fix has a test that reproduces the bug. Spec, README, changelog and API docs updated where behaviour changed.
