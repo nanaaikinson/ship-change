@@ -11,31 +11,21 @@ A Claude Code plugin that delivers a code change end to end through a gated pipe
 
 Tests and reviews go to fresh-context subagents so they check what the code *does*, not what its author *meant*. Works in any repository and language.
 
-## Pipeline
+<details>
+<summary><strong>Pipeline flowchart</strong> (click to expand)</summary>
 
 ```mermaid
-flowchart TD
-    A([Request]) --> P0["Phase 0 · Intake<br/>requirement → numbered criteria R1…Rn<br/>size, sensitive areas, branch"]
-    P0 --> SZ{Size?}
-    SZ -- Docs --> D["Edit directly<br/>(no pipeline)"]
-    SZ -- Small --> P1
-    SZ -- Standard --> P1
-    P1["Phase 1 · Build<br/>gate: format + lint + build"] --> P2
-    P2["Phase 2 · Tests<br/>ship-test-writer<br/>gate: tests pass, key tests can fail"] --> KS{Size?}
-    KS -- Small --> CR1["One combined review<br/>ship-code-reviewer<br/>code + security checklists"]
-    KS -- Standard --> P3
-    P3["Phase 3 · Code review<br/>ship-code-reviewer"] --> F3{Open blocker<br/>or major?}
-    F3 -- yes --> X3["Fix, re-run gates,<br/>re-review (max 2 rounds)"] --> P3
-    F3 -- no --> P4
-    P4["Phase 4 · Security review<br/>ship-security-reviewer"] --> F4{Open critical<br/>or high?}
-    F4 -- yes --> X4["Fix + regression test,<br/>re-review"] --> P4
-    F4 -- no --> P5
-    CR1 --> P5
-    P5["Phase 5 · Finish<br/>release notes, docs, full check, report"] --> Z([Done])
-    D --> Z
+flowchart LR
+    P0["0 Intake"] --> P1["1 Build"] --> P2["2 Tests"] --> P3["3 Code review"] --> P4["4 Security review"] --> P5["5 Finish"]
+    P3 -. "blocker/major: fix, re-review" .-> P3
+    P4 -. "critical/high: fix, re-review" .-> P4
+    P0 -. "Docs: edit directly" .-> P5
+    P2 -. "Small: one combined review" .-> P5
 ```
 
 Commits are always the user's call: the skill asks at each commit point and never pushes, opens PRs, merges or deploys unasked.
+
+</details>
 
 ## Contents
 
